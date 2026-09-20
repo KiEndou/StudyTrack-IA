@@ -1,0 +1,30 @@
+/* Define fontes, cores e o fundo geral da aplicação. */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap');
+
+/* Variáveis globais e regras básicas para manter o layout previsível. */
+:root { color: #e9eef5; background: #10151b; font-family: 'DM Sans', sans-serif; }
+* { box-sizing: border-box; }
+/* Cria a atmosfera visual principal do dashboard. */
+body { margin: 0; min-width: 320px; background: radial-gradient(circle at 80% 10%, #254437 0, transparent 36%), #10151b; }
+/* Limita a largura do conteúdo e adiciona espaçamento para desktop e mobile. */
+.app-shell { width: min(1080px, calc(100% - 48px)); margin: 0 auto; padding: 72px 0; }
+/* Organiza a apresentação inicial da página. */
+.hero-panel { max-width: 760px; padding: 48px 0 72px; }
+.eyebrow { margin: 0 0 20px; color: #8be0bd; font-size: 12px; font-weight: 700; letter-spacing: .18em; }
+h1 { max-width: 720px; margin: 0; color: #f5f7fa; font-family: 'Space Grotesk', sans-serif; font-size: clamp(42px, 8vw, 88px); line-height: .98; letter-spacing: 0; }
+.subtitle { max-width: 540px; margin: 28px 0 0; color: #a9b5c3; font-size: 20px; line-height: 1.5; }
+.status-line { display: inline-flex; align-items: center; gap: 10px; margin-top: 36px; color: #d9e3ee; font-size: 14px; }
+/* Exibe o estado da conexão com a API por meio de um ponto colorido. */
+.status-dot { width: 9px; height: 9px; border-radius: 50%; background: #e1a95f; }
+.status-dot.online { background: #65d69e; }
+.status-dot.offline { background: #e27474; }
+/* Organiza os indicadores resumidos do dashboard em cartões. */
+.workspace-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.metric-card { min-height: 148px; padding: 24px; border: 1px solid #2b3742; border-radius: 8px; background: rgba(25, 34, 42, .8); }
+.metric-card span { display: block; margin-bottom: 22px; color: #8e9aa8; font-size: 13px; }
+.metric-card strong { color: #eef4f7; font-family: 'Space Grotesk', sans-serif; font-size: 20px; line-height: 1.2; }
+/* Centraliza a página de rota não encontrada. */
+.centered { min-height: 80vh; display: grid; place-content: center; }
+.back-link { margin-top: 24px; color: #8be0bd; }
+/* Empilha os cartões quando a largura da tela é pequena. */
+@media (max-width: 700px) { .app-shell { width: min(100% - 32px, 560px); padding: 40px 0; } .hero-panel { padding: 32px 0 48px; } .workspace-grid { grid-template-columns: 1fr; } }
