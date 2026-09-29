@@ -1,2 +1,2 @@
 # StudyTrack-IA
-Agenda com tutor de IA para auxiliar nos estudos e organização
+Agenda com agente de IA para auxiliar na organização e nos estudos.
