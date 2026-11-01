@@ -1,22 +1,38 @@
-// Componente principal responsável pela estrutura de navegação do frontend.
-import { Link, Route, Routes } from "react-router-dom";
-
-// Importa as páginas que já fazem parte da primeira versão do sistema.
+// Rotas principais do StudyTrack IA.
+import { Navigate, Route, Routes } from "react-router-dom";
+import type { ReactNode } from "react";
+import { useAuth } from "./contexts/AuthContext";
+import { AuthPage, ResetPasswordPage } from "./pages/AuthPage";
 import { DashboardPage } from "./pages/DashboardPage";
+import { SubjectsPage } from "./pages/SubjectsPage";
+import { ActivitiesPage } from "./pages/ActivitiesPage";
+import { CalendarPage } from "./pages/CalendarPage";
+import { ProfilePage } from "./pages/ProfilePage";
+import { PerformancePage } from "./pages/PerformancePage";
+import { TutorPage } from "./pages/TutorPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 
-// Define as rotas visíveis do StudyTrack IA.
+function ProtectedRoute({ children }: { children: ReactNode }) {
+  const { user, loading } = useAuth();
+  if (loading) return <div className="auth-loading">Carregando sua conta...</div>;
+  return user ? <>{children}</> : <Navigate to="/login" replace />;
+}
+
 function App() {
   return (
     <Routes>
-      {/* A página inicial apresenta o resumo e o status da API. */}
-      <Route path="/" element={<DashboardPage />} />
-      {/* Qualquer endereço desconhecido exibe uma página de retorno. */}
+      <Route path="/login" element={<AuthPage />} />
+      <Route path="/redefinir-senha" element={<ResetPasswordPage />} />
+      <Route path="/" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
+      <Route path="/disciplinas" element={<ProtectedRoute><SubjectsPage /></ProtectedRoute>} />
+      <Route path="/atividades" element={<ProtectedRoute><ActivitiesPage /></ProtectedRoute>} />
+      <Route path="/calendario" element={<ProtectedRoute><CalendarPage /></ProtectedRoute>} />
+      <Route path="/perfil" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+      <Route path="/desempenho" element={<ProtectedRoute><PerformancePage /></ProtectedRoute>} />
+      <Route path="/tutor" element={<ProtectedRoute><TutorPage /></ProtectedRoute>} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 }
 
 export default App;
-// Reexporta Link para manter disponível o componente de navegação neste módulo.
-export { Link };
