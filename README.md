@@ -133,34 +133,3 @@ uvicorn app.main:app --reload
 ```
 
 Quando iniciado, o backend fica disponível em `http://localhost:8000`; a documentação interativa pode ser acessada em `http://localhost:8000/docs` e a rota de saúde em `http://localhost:8000/api/health`.
-
-## Publicação para avaliação
-
-O frontend pode ser publicado em uma plataforma de hospedagem compatível com Vite, como Vercel ou Netlify:
-
-1. Importe o repositório do GitHub na plataforma escolhida.
-2. Configure a pasta raiz do projeto como `frontend`.
-3. Configure o comando de build como `npm run build` e a pasta de saída como `dist`.
-4. Cadastre no painel da hospedagem as variáveis `VITE_SUPABASE_URL` e `VITE_SUPABASE_ANON_KEY` com os valores do projeto Supabase.
-5. Após a publicação, adicione o domínio gerado em **Authentication → URL Configuration → Redirect URLs** no Supabase.
-6. Teste cadastro/login e as operações de dados pelo endereço publicado antes de enviar o link ao professor.
-
-Se a aplicação utilizar futuramente endpoints da API FastAPI em produção, o backend também deverá ser publicado e `VITE_API_URL` deverá apontar para o endereço público da API.
-
-## Segurança e variáveis de ambiente
-
-- **Não envie `.env`, `.env.local` ou outros arquivos com credenciais reais para o Git.**
-- Os arquivos `.env.example` contêm apenas nomes de variáveis e valores ilustrativos; eles servem como modelo de configuração.
-- A chave pública (`publishable`/`anon`) do Supabase é destinada ao uso no cliente, mas os dados devem continuar protegidos por políticas RLS corretas.
-- **Nunca coloque `service_role` ou qualquer segredo administrativo no frontend, no repositório ou em variáveis `VITE_*`.**
-- O `.gitignore` do projeto já ignora arquivos de ambiente e mantém os arquivos `.env.example` versionáveis.
-
-## Observações sobre o modelo de dados e funcionalidades
-
-- A página **Desempenho** apresenta o progresso de conclusão das atividades. O schema atual não possui uma tabela específica de notas/avaliações; portanto, essa tela não deve ser interpretada como boletim de notas.
-- Alguns campos complementares do perfil ainda são mantidos localmente, pois não possuem colunas correspondentes na estrutura atual do banco.
-- A disponibilidade do Tutor com respostas geradas por IA depende da integração do serviço/API correspondente.
-
-## Equipe e repositório
-
-Consulte o histórico de commits e os colaboradores cadastrados no repositório GitHub do projeto para identificar a participação da equipe.
