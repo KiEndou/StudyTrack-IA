@@ -133,4 +133,7 @@ uvicorn app.main:app --reload
 ```
 
 Quando iniciado, o backend fica disponível em `http://localhost:8000`; a documentação interativa pode ser acessada em `http://localhost:8000/docs` e a rota de saúde em `http://localhost:8000/api/health`.
+<<<<<<< HEAD
 
+=======
+>>>>>>> 90c7be2fb10737b1ad443ec4ea11d3657f62908b
