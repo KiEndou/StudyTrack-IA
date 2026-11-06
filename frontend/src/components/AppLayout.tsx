@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
-type IconName = "grid" | "book" | "check-square" | "calendar" | "chart" | "sparkles" | "settings" | "chevron" | "menu" | "plus" | "search" | "filter" | "clock" | "user" | "more" | "close" | "trash" | "edit" | "layers" | "refresh" | "check-circle" | "shield" | "info" | "check" | "clipboard" | "target" | "activity" | "message" | "lightbulb" | "arrow-up";
+type IconName = "grid" | "book" | "check-square" | "calendar" | "chart" | "sparkles" | "settings" | "chevron" | "menu" | "plus" | "search" | "filter" | "clock" | "user" | "more" | "close" | "trash" | "edit" | "layers" | "refresh" | "check-circle" | "shield" | "info" | "check" | "clipboard" | "target" | "activity" | "message" | "lightbulb" | "arrow-up" | "moon" | "sun";
 
 function Icon({ name, size = 18 }: { name: IconName; size?: number }) {
   const paths: Record<IconName, ReactNode> = {
@@ -36,6 +36,8 @@ function Icon({ name, size = 18 }: { name: IconName; size?: number }) {
     message: <><path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H6l-3 2v-6.5A7.5 7.5 0 1 1 20 11.5Z" /><path d="M8 11h8M8 14h5" /></>,
     lightbulb: <><path d="M9 18h6M10 22h4M8.2 14.5A7 7 0 1 1 15.8 14.5c-.9.7-1.3 1.5-1.5 2.5h-4.6c-.2-1-.6-1.8-1.5-2.5Z" /></>,
     "arrow-up": <path d="M12 19V5m-7 7 7-7 7 7" />,
+    moon: <path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11Z" />,
+    sun: <><circle cx="12" cy="12" r="4" /><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" /></>,
   };
 
   return (
@@ -99,10 +101,13 @@ export function AppLayout({ children }: { children: ReactNode }) {
 
         <div className="sidebar-bottom">
           <div className="sidebar-section-label">PREFERÊNCIAS</div>
-          <div className="nav-item nav-item-disabled" aria-disabled="true" title="Esta página será construída em breve">
+          <NavLink
+            to="/configuracoes"
+            className={({ isActive }) => `nav-item${isActive ? " active" : ""}`}
+          >
             <Icon name="settings" />
             <span>Configurações</span>
-          </div>
+          </NavLink>
           <div className="sidebar-help-card">
             <div className="help-icon"><Icon name="sparkles" size={17} /></div>
             <strong>Estude no seu ritmo.</strong>
@@ -120,7 +125,7 @@ export function AppLayout({ children }: { children: ReactNode }) {
 
       <main className="main-area">
         <header className="topbar">
-          <div className="breadcrumb"><span>Meu espaço</span><Icon name="chevron" size={14} /><strong>{window.location.pathname.startsWith("/disciplinas") ? "Disciplinas" : window.location.pathname.startsWith("/atividades") ? "Atividades" : window.location.pathname.startsWith("/calendario") ? "Calendário" : window.location.pathname.startsWith("/desempenho") ? "Desempenho" : window.location.pathname.startsWith("/tutor") ? "Tutor StudyTrack" : window.location.pathname.startsWith("/perfil") ? "Meu perfil" : "Visão geral"}</strong></div>
+          <div className="breadcrumb"><span>Meu espaço</span><Icon name="chevron" size={14} /><strong>{window.location.pathname.startsWith("/disciplinas") ? "Disciplinas" : window.location.pathname.startsWith("/atividades") ? "Atividades" : window.location.pathname.startsWith("/calendario") ? "Calendário" : window.location.pathname.startsWith("/desempenho") ? "Desempenho" : window.location.pathname.startsWith("/tutor") ? "Tutor StudyTrack" : window.location.pathname.startsWith("/perfil") ? "Meu perfil" : window.location.pathname.startsWith("/configuracoes") ? "Configurações" : "Visão geral"}</strong></div>
           <div className="topbar-right">
             <span className="topbar-date">{new Intl.DateTimeFormat("pt-BR", { weekday: "long", day: "numeric", month: "long" }).format(new Date())}</span>
             <div className="topbar-avatar">{avatar}</div>

@@ -11,6 +11,7 @@ import { ProfilePage } from "./pages/ProfilePage";
 import { PerformancePage } from "./pages/PerformancePage";
 import { TutorPage } from "./pages/TutorPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
+import { SettingsPage } from "./pages/SettingsPage";
 
 function ProtectedRoute({ children }: { children: ReactNode }) {
   const { user, loading } = useAuth();
@@ -30,6 +31,7 @@ function App() {
       <Route path="/perfil" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
       <Route path="/desempenho" element={<ProtectedRoute><PerformancePage /></ProtectedRoute>} />
       <Route path="/tutor" element={<ProtectedRoute><TutorPage /></ProtectedRoute>} />
+      <Route path="/configuracoes" element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );

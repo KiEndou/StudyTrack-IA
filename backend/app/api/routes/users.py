@@ -1,15 +1,25 @@
-# Contém endpoints relacionados ao usuário atualmente autenticado.
-from fastapi import APIRouter
+"""Endpoints relacionados ao usuário atualmente autenticado."""
+from typing import Any
 
-# O schema define o contrato que o frontend receberá.
+from fastapi import APIRouter, Depends
+
+from app.core.security import get_current_user
 from app.schemas.user import UserResponse
 
-# Roteador local das operações de usuário.
 router = APIRouter()
 
 
-# Retorna um contrato provisório enquanto a autenticação ainda está sendo integrada.
 @router.get("/me", response_model=UserResponse)
-def get_current_user() -> UserResponse:
-    # O identificador indica que a autenticação real ainda será conectada.
-    return UserResponse(id="pending-auth", email=None, full_name=None)
+def get_current_user_profile(user: Any = Depends(get_current_user)) -> UserResponse:
+    """Retorna os dados básicos do usuário validados pelo Supabase Auth."""
+    metadata = user.user_metadata or {}
+    full_name = (
+        metadata.get("nome")
+        or metadata.get("full_name")
+        or metadata.get("name")
+    )
+    return UserResponse(
+        id=str(user.id),
+        email=user.email,
+        full_name=full_name,
+    )
